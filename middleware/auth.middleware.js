@@ -29,12 +29,11 @@ module.exports = function () {
       res.status(401).json({ status: 401, message: 'This action requires a logged in user' }) : next()
   }
   this.login = (req) => {
-    return Model.findOne({ username: req.body.username }).then((user) => {
+    logger.log("User Request: ", req);
+    return Model.findOne({ "username": req.body.username }).then((user) => {
       if (_.isEmpty(user)) {
         return Promise.reject(new UnAuthorizedError('Authentication failed, user does not exist'))
       }
-
-        logger.log("User: ", user);
       this.user = user
       /** compare passwords */
       return hash.compare(req.body.password, user.password)

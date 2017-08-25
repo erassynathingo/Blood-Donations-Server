@@ -62,5 +62,8 @@ module.exports = {
       'unAuthorized': 'You are not authorized to perform this action'
     }
   },
-  defaultPermissions: ["read", "write", "update"]
+  defaultPermissions: ["read", "write", "update"],
+  originsWhitelist : [
+    "http://localhost:3030"
+  ]
 }

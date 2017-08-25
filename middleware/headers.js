@@ -10,6 +10,7 @@
 module.exports = function (req, res, next) {
   // Cross Origin headers//
   res.header('Access-Control-Allow-Origin', req.get('origin'))
+  console.log("Origin: ", req.get('origin'));
   res.header('Access-Control-Allow-Origin', '*')
   res.header('Access-Control-Allow-Credentials', true)
   res.header('Access-Control-Allow-Methods', 'POST,GET,OPTIONS,PUT,DELETE')

@@ -17,11 +17,13 @@ let express = require('express'),
     Logger = require('./libraries/logger.lib'),
     logger = new Logger(),
     session = require('express-session'),
-    responseTime = require('response-time')
+    responseTime = require('response-time'),
+    cors = require('cors'),
+    corsOpt = require('./middleware/cors.options');
 
 // =================   ROUTES DEFINITIONS ================ //
 
-auth = require('./routes/auth'),
+auth = require('./routes/authentication.route'),
     users = require('./routes/users'),
     donate = require('./routes/donate'),
     tests = require('./routes/unitTests')
@@ -43,18 +45,16 @@ app.use(session(config.auth))
     .use(morgan('dev'))
     .use(headers)
     .use(bodyParser.urlencoded({
-        extended: true,
-        limit: '1000mb'
+        extended: true
     }))
-    .use(bodyParser.json({
-        limit: '50mb'
-    }))
+    .use(bodyParser.json())
     .use(bodyParser.raw({
         limit: '50mb'
     }))
     .use(responseTime())
     /* Security*/
     .use(helmet())
+    .use(cors(corsOpt.getCORSoptions()))
 
     // ================  ROUTERS ====================>>//
     .use('/auth', auth)

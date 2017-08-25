@@ -9,15 +9,17 @@
 
 const config = require('../config');
 const Log = require('../libraries/logger.lib');
-let logger = new Log()
+let logger = new Log();
 let express = require('express');
-let router = express.Router();
 let errorHandler = require('../libraries/errorHandler.lib');
 let Auth = require('../middleware/auth.middleware');
 let auth = new Auth();
 let Response = require('../middleware/responder.middleware');
-let response = new Response()
-router.post('/', (req, res, next)=> {
+let response = new Response();
+let router = express.Router();
+
+router.post('/',(req, res, next)=>{
+	logger.log("REQ: ", req);
 	auth.login(req).then((user) => {
 		response.send(res, user, config.response.status_codes.FETCHED);
 	}).catch((error) => {
