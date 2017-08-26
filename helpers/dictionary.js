@@ -9,10 +9,10 @@
 
 module.exports = {
   user: {
-    _id: '_id',
     firstName: 'firstName',
     lastName: 'lastName',
     username: 'username',
+    email: 'email',
     password: 'password',
     role: 'role',
     entry_date: 'entry_date',

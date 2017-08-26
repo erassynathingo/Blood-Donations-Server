@@ -11,7 +11,7 @@ const config = require('../config');
 const Log = require('../libraries/logger.lib');
 let logger = new Log();
 let express = require('express');
-let router = express.Router();
+let bodyParser = require('body-parser');
 let errorHandler = require('../libraries/errorHandler.lib');
 let Auth = require('../middleware/auth.middleware');
 let auth = new Auth();
@@ -19,6 +19,12 @@ let Response = require('../middleware/responder.middleware');
 let controller = require('../controllers/user.ctrl');
 let NotFoundError = require("../libraries/errors/NotFound");
 let response = new Response();
+
+let router = express.Router()
+let app = express()
+app.use(bodyParser.urlencoded({
+  extended: false
+}))
 
 router.get('/:user_id/check', (req, res, next) => {
   controller.check(req).then((doc) => {
@@ -48,9 +54,10 @@ router.get('/:user_id/check', (req, res, next) => {
     response.send(res, json)
   })
 }).put('/', (req, res, next) => {
+  console.log("REG h: ", req.body);
   controller.create(req).then((doc) => {
     logger.log('Registration successful').log(doc)
-    response.send(res, doc)
+    response.send(res, doc,config.response.status_codes.CREATED)
   }).catch((error) => {
     logger.log(' registration resulted in an error').error(error)
     let json = errorHandler.resolve(error, config.response.status_codes.NOT_CREATED, 'User could not be registered')

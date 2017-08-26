@@ -44,10 +44,10 @@ app.use(session(config.auth))
     .set('Title', 'Blood_Donations_Server')
     .use(morgan('dev'))
     .use(headers)
+    .use(bodyParser.json())
     .use(bodyParser.urlencoded({
         extended: true
     }))
-    .use(bodyParser.json())
     .use(bodyParser.raw({
         limit: '50mb'
     }))

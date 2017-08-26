@@ -11,10 +11,10 @@ let config = require('../config');
 let _ = require('lodash');
 let Model = require('../models/users.model')
 const mapper = require('../helpers/map');
-const dict = require('../helpers/dictionary')
-let Hash = require('../libraries/hash.lib')
-let hash = new Hash()
-const Log = require('../libraries/logger.lib')
+const dict = require('../helpers/dictionary');
+let Hash = require('../libraries/hash.lib');
+let hash = new Hash();
+const Log = require('../libraries/logger.lib');
 let logger = new Log()
 
 module.exports = {
