@@ -9,6 +9,7 @@
 
 module.exports = {
   user: {
+    id_number: '_id',
     firstName: 'firstName',
     lastName: 'lastName',
     username: 'username',

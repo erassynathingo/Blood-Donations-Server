@@ -26,9 +26,12 @@ module.exports = {
   },
 
   create: req => {
-    if (permissions.createItems(req.session, data.user_id) == true) {
-      data.user_id = req.session.user.staff_id;
-      return Model.create(data);
+    if (permissions.createItems(req.session) == true) {
+      return Model.create(req.body);
     }
+  },
+
+  update: req =>{
+    //if(permissions.updateItems(req.session))
   }
 };

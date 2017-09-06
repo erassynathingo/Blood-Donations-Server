@@ -13,9 +13,11 @@ ai.initialize(db.connection);
 let Schema = db.Schema;
 let moment = require("moment");
 let users = require("../models/users.model");
-let _config =  require('../config');
+let _config = require("../config");
 
-let userSchema = new Schema({
+let userSchema = new Schema(
+  {
+    _id: { type: Number, unique: true, required: true },
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
     email: { type: String, required: true },
@@ -24,22 +26,8 @@ let userSchema = new Schema({
     role: { type: String, required: true },
     entry_date: { type: Date, default: Date.now },
     entered_by: { type: String, ref: users },
-    permissions: {type: Array, default: _config.defaultPermissions}
-  },
-  {
-    toJSON: {
-      virtuals: true
-    },
-    toObject: {
-      virtuals: true
-    }
+    permissions: { type: Array, default: _config.defaultPermissions }
   }
 );
-userSchema.plugin(ai.plugin, {
-  model: 'Users',
-  field: '_id',
-  startAt: 1,
-  incrementBy: 1
-});
 
 module.exports = db.model("Users", userSchema);

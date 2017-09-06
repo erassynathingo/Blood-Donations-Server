@@ -25,15 +25,15 @@ module.exports = function () {
       }
   },
 
-  this.createItems = (req, user_id) => {
-    return this.checkPermission('management', 'create', req)
-  },
+  this.createItems = (req) => {
+    return this.checkPermission('management', 'create', req);
+  }
 
-  this.deleteItems = (req, user_id) => this.checkPermission('management', 'remove', req),
+  this.deleteItems = (req) => this.checkPermission('management', 'remove', req)
 
-  this.updateItems = (req, user_id) => this.checkPermission('management', 'update', req),
+  this.updateItems = (req) => this.checkPermission('management', 'update', req)
 
-  this.createUniversal = (req) => this.checkPermission('management', 'add', req),
+  this.createUniversal = (req) => this.checkPermission('management', 'add', req)
 
   this.updateUniversal = (req) => this.checkPermission('management', 'update', req)
 }

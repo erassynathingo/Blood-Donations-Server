@@ -50,17 +50,17 @@ router.get('/:user_id/check', (req, res, next) => {
     }
   }).catch((error) => {
     logger.log(' update resulted in an error').error(error.message)
-    let json = errorHandler.resolve(error, config.response.status_codes.NOT_UPDATED, 'User update unsuccessful')
+    let json = errorHandler.resolve(error, config.response.status_codes.NOT_UPDATED)
     response.send(res, json)
   })
 }).put('/', (req, res, next) => {
   console.log("REG h: ", req.body);
   controller.create(req).then((doc) => {
     logger.log('Registration successful').log(doc)
-    response.send(res, doc,config.response.status_codes.CREATED)
+    res.status(200).json(doc)
   }).catch((error) => {
-    logger.log(' registration resulted in an error').error(error)
-    let json = errorHandler.resolve(error, config.response.status_codes.NOT_CREATED, 'User could not be registered')
+    logger.log('Registration resulted in an error').error(error)
+    let json = errorHandler.resolve(error, config.response.status_codes.NOT_CREATED)
     response.send(res, json)
   })
 }).patch('/:user_id', auth.authenticate, (req, res, next) => {
@@ -73,7 +73,7 @@ router.get('/:user_id/check', (req, res, next) => {
     }
   }).catch((error) => {
     logger.log(' password update unsuccessful').error(error.message)
-    let json = errorHandler.resolve(error, config.response.status_codes.NOT_UPDATED, 'User password update unsuccessful')
+    let json = errorHandler.resolve(error, config.response.status_codes.NOT_UPDATED)
     response.send(res, json)
   })
 }).delete('/:user_id', auth.authenticate, (req, res, next) => {
@@ -91,7 +91,7 @@ router.get('/:user_id/check', (req, res, next) => {
     }
   }).catch((error) => {
     logger.log(' fetch resulted in an error').error(error)
-    let json = errorHandler.resolve(error, config.response.status_codes.NOT_DELETED, 'User Removal unsuccessful')
+    let json = errorHandler.resolve(error, config.response.status_codes.NOT_DELETED)
     response.send(res, json)
   })
 })
@@ -105,7 +105,7 @@ router.get('/:user_id/check', (req, res, next) => {
     }
   }).catch((error) => {
     logger.log(' retrieval unsuccessful').error(error.message)
-    let json = errorHandler.resolve(error, config.response.status_codes.NOT_FETCHED, 'User retrieval unsuccessful')
+    let json = errorHandler.resolve(error, config.response.status_codes.NOT_FETCHED)
     response.send(res, json)
   })
 }).get('/', auth.authenticate, (req, res, next) => {
@@ -118,7 +118,7 @@ router.get('/:user_id/check', (req, res, next) => {
     }
   }).catch((error) => {
     logger.log(' retrieval unsuccessful').error(error.message)
-    let json = errorHandler.resolve(error, config.response.status_codes.NOT_FETCHED, 'User retrieval unsuccessful')
+    let json = errorHandler.resolve(error, config.response.status_codes.NOT_FETCHED)
     response.send(res, json)
   })
 })

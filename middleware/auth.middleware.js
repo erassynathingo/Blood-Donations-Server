@@ -7,6 +7,7 @@
 * @throws 
 */
 
+let express = require('express');
 let config = require('../config')
 let Promise = require('bluebird')
 let _ = require('lodash')
@@ -20,6 +21,9 @@ let UnAuthorizedError = require('../libraries/errors/UnAuthorizedError')
 const dict = require('../helpers/dictionary')
 let map = require('../helpers/map')
 let hash = new Hash()
+let bodyParser = require('body-parser');
+let app = express();
+app.use(bodyParser.json());
 
 module.exports = function () {
   this.user = null
@@ -29,17 +33,17 @@ module.exports = function () {
       res.status(401).json({ status: 401, message: 'This action requires a logged in user' }) : next()
   }
   this.login = (req) => {
-    logger.log("User Request: ", req);
+    console.log("User Request: ", req.body);
     return Model.findOne({ "username": req.body.username }).then((user) => {
       if (_.isEmpty(user)) {
-        return Promise.reject(new UnAuthorizedError('Authentication failed, user does not exist'))
+        return Promise.reject(new UnAuthorizedError('Authentication failed, User does not exist'));
       }
       this.user = user
       /** compare passwords */
       return hash.compare(req.body.password, user.password)
     }).then(resp => {
       if (!resp) {
-        return Promise.reject(new UnAuthorizedError('Authentication failed, Wrong password'))
+        return Promise.reject(new UnAuthorizedError('Authentication failed, Wrong password'));
       }
       return this.setSession(req)
     })
@@ -47,7 +51,8 @@ module.exports = function () {
   /* complete the authentication and send feedback */
   this.setSession = (req) => {
     req.session.authenticated = true
-    return map.inverse(_.omit(this.user, ['password']), dict.users).then(data => {
+    return map.inverse(_.omit(this.user, ['password']), dict.user).then(data => {
+      console.log("Inversed: ", data);
       req.session.user = data
       return Promise.resolve(req.session.user)
     }).catch(error => {

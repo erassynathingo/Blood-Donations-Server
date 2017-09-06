@@ -16,15 +16,20 @@ let Auth = require('../middleware/auth.middleware');
 let auth = new Auth();
 let Response = require('../middleware/responder.middleware');
 let response = new Response();
+let bodyParser = require('body-parser');
+let app = express();
+app.use(bodyParser.json());
+
 let router = express.Router();
 
-router.post('/',(req, res, next)=>{
-	logger.log("REQ: ", req);
+router.post('/',(req, res)=>{
+	logger.log("REQ: ", req.body);
 	auth.login(req).then((user) => {
-		response.send(res, user, config.response.status_codes.FETCHED);
+		res.status(200).json(user);
 	}).catch((error) => {
 		logger.log('login threw an error: =>').log(error.message);
-		let json = errorHandler.resolve(error, config.response.status_codes.UNAUTHORIZED, 'login unsuccessful');
+		let json = errorHandler.resolve(error, config.response.status_codes.UNAUTHORIZED);
+		console.log("LOGIN ERROR: ", json);
 		response.send(res, json);
 	});
 }).get('/', (req, res, next)=> {
@@ -33,7 +38,7 @@ router.post('/',(req, res, next)=>{
 		response.send(res, user, config.response.status_codes.FETCHED);
 	}).catch((error) => {
 		logger.log('Getting User').log(error.message);
-		let json = errorHandler.resolve(error, config.response.status_codes.UNAUTHORIZED, 'login unsuccessful');
+		let json = errorHandler.resolve(error, config.response.status_codes.UNAUTHORIZED);
 		response.send(res, json);
 	});
 }).patch('/', (req, res, next)=> {
@@ -42,7 +47,7 @@ router.post('/',(req, res, next)=>{
 		response.send(res, user, config.response.status_codes.FETCHED);
 	}).catch((error) => {
 		logger.log('Patch threw an error: =>').log(error.message);
-		let json = errorHandler.resolve(error, config.response.status_codes.NOT_FOUND, 'update unsuccessful');
+		let json = errorHandler.resolve(error, config.response.status_codes.NOT_FOUND);
 		response.send(res, json);
 	});
 }).delete('/', (req, res, next)=> {
@@ -52,7 +57,7 @@ router.post('/',(req, res, next)=>{
 		response.send(res, json);
 	}).catch((error) => {
 		logger.log('logout threw an error: =>').log(error.message);
-		let json = errorHandler.resolve(error, config.response.status_codes.SERVER_ERROR, 'logout unsuccessful');
+		let json = errorHandler.resolve(error, config.response.status_codes.SERVER_ERROR);
 		response.send(res, json);
 	});
 });

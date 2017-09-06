@@ -28,7 +28,6 @@ module.exports = {
         break;
       case 'UnAuthorizedError':
         response.status = (!_.isUndefined(error.status) && !_.isEmpty(error.status)) ? error.status : 401
-        logger.log("")
         response.message = (!_.isUndefined(error.message) && !_.isEmpty(error.message)) ? error.message : 'You are not authorized'
         break;
       case 'TypeError':
@@ -48,7 +47,8 @@ module.exports = {
         response.message = (!_.isUndefined(error.message) && !_.isEmpty(error.message)) ? error.message : 'Server Error';
         break;
     }
-    logger.log('Error Handler: ', response).error(response)
-    return response
+    console.log('Error Handler: ', response)
+    logger.error(response);
+    return response;
   }
 }

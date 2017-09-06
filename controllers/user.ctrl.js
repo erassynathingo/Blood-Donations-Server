@@ -21,9 +21,9 @@ module.exports = {
   create: (req) => {
     return hash.encrypt(req.body.password).then(password => {
       data = req.body;
-      data.password = password
-      return mapper.map(data, dict.user).then(data => {
-        return Model.create(data)
+      data.password = password;
+      return mapper.map(data, dict.user).then(doc => {
+        return Model.create(doc)
       })
     })
   },

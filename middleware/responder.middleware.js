@@ -12,10 +12,12 @@ const Log = require('../libraries/logger.lib')
 let logger = new Log()
 module.exports = function(){
 
-  this.send = (res, json, status) => {
-    status = status === undefined ? 500: json.status || status
+  this.send = (res, json) => {
 
-    logger.log("Status: ",status)
+    console.log("E:  ",json)
+    let status = json.status === undefined ? 500: json.status
+
+    console.log("Status: ",status)
     switch (status) {
       case config.response.status_codes.FETCHED:
         logger.log('Fetch Success').log(json)
@@ -29,7 +31,7 @@ module.exports = function(){
         logger.log('success').log(json)
         res.status(200).json(json)
         break
-      case config.response.status_codes.BAD_REQUEST:
+      case 400:
         logger.log('Bad Request')
         res.status(400).json(json)
         break
@@ -53,6 +55,10 @@ module.exports = function(){
         logger.log('Deleted')
         res.status(200).json(json)
         break
+        case config.response.status_codes.NOT_CREATED:
+          logger.log('not created')
+          res.status(400).json(json)
+          break
       case 415:
         logger.log('Unsupported Media Type')
         res.status(415).json(json)
