@@ -23,19 +23,16 @@ app.use(bodyParser.json());
 let router = express.Router();
 
 router.post('/',(req, res)=>{
-	logger.log("REQ: ", req.body);
 	auth.login(req).then((user) => {
 		res.status(200).json(user);
 	}).catch((error) => {
 		logger.log('login threw an error: =>').log(error.message);
 		let json = errorHandler.resolve(error, config.response.status_codes.UNAUTHORIZED);
-		console.log("LOGIN ERROR: ", json);
 		response.send(res, json);
 	});
 }).get('/', (req, res, next)=> {
 	auth.getAuthenticated(req).then((user) => {
-		logger.log('Current User').log(user);
-		response.send(res, user, config.response.status_codes.FETCHED);
+		res.status(200).json(user);
 	}).catch((error) => {
 		logger.log('Getting User').log(error.message);
 		let json = errorHandler.resolve(error, config.response.status_codes.UNAUTHORIZED);
@@ -44,7 +41,7 @@ router.post('/',(req, res)=>{
 }).patch('/', (req, res, next)=> {
 	auth.update(req).then((user) => {
 		logger.log('update successful.').log(user);
-		response.send(res, user, config.response.status_codes.FETCHED);
+		res.status(200).json(user);
 	}).catch((error) => {
 		logger.log('Patch threw an error: =>').log(error.message);
 		let json = errorHandler.resolve(error, config.response.status_codes.NOT_FOUND);
@@ -54,7 +51,7 @@ router.post('/',(req, res)=>{
 	auth.logout(req).then(() => {
 		logger.log('logged out successful');
 		let json = { status: config.response.status_codes.DELETED, message: 'User log out successful' };
-		response.send(res, json);
+		res.status(200).json(json);
 	}).catch((error) => {
 		logger.log('logout threw an error: =>').log(error.message);
 		let json = errorHandler.resolve(error, config.response.status_codes.SERVER_ERROR);

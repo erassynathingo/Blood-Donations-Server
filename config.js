@@ -16,7 +16,7 @@ module.exports = {
 
   auth: {
     secret: 'S0ftwar3_3ng1n33ring_i5_7h3_B357',
-    name: 'Blood_Donations_Tool',
+    name: 'Blood_Donations_App',
     cookie: {
       sameSite: false
     },

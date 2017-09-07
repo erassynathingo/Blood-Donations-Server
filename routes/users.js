@@ -34,7 +34,7 @@ router.get('/:user_id/check', (req, res, next) => {
       message: 'User Exists',
       user: doc
     }
-    response.send(res, json, 200)
+    res.status(200).json(doc)
   }).catch((error) => {
     logger.log(' fetch resulted in an error').error(error)
     let json = errorHandler.resolve(error, config.response.status_codes.NOT_CREATED, 'User retrieval unsuccessful')
@@ -44,7 +44,7 @@ router.get('/:user_id/check', (req, res, next) => {
   controller.update(req).then((doc) => {
     logger.log(req.params.staff_id+'update successful').log(doc)
     if (doc !== null) {
-      response.send(res, doc, config.response.status_codes.UPDATED)
+      res.status(200).json(doc)
     } else {
       throw new Error('Cannot update user details.')
     }
@@ -67,7 +67,7 @@ router.get('/:user_id/check', (req, res, next) => {
   controller.patch(req).then((doc) => {
     logger.log(' password change successful').log(doc)
     if (doc !== null) {
-      response.send(res, doc, config.response.status_codes.UPDATED)
+      res.status(200).json(doc)
     } else {
       throw new Error('Cannot update user password.')
     }
@@ -85,7 +85,7 @@ router.get('/:user_id/check', (req, res, next) => {
       message: 'Deleted',
       user: doc
     }
-    response.send(res, json, 200)
+    res.status(200).json(json)
     } else {
       throw new Error('User does not Exist')
     }
@@ -99,7 +99,7 @@ router.get('/:user_id/check', (req, res, next) => {
   controller.getOne(req).then((doc) => {
     logger.log(' retrieval successful').log(doc)
     if (doc !== null) {
-      response.send(res, doc, config.response.status_codes.FETCHED)
+      res.status(200).json(doc)
     } else {
       throw new Error('Cannot find user.')
     }
@@ -112,7 +112,7 @@ router.get('/:user_id/check', (req, res, next) => {
   controller.get(req).then((doc) => {
     logger.log(' retrieval successful').log(doc)
     if (doc !== null) {
-      response.send(res, doc, config.response.status_codes.FETCHED)
+      res.status(200).json(doc)
     } else {
       throw new Error('Cannot find users.')
     }

@@ -27,7 +27,7 @@ var logger = bunyan.createLogger(
         path: logPath, // log ERROR and above to a file
         type: 'rotating-file',
         period: '1d', // daily rotation
-        count: 10, // keep 10 back copies
+        count: 5, // keep 10 back copies
         name: 'Fatal_Errors'
       },
       {
@@ -35,7 +35,7 @@ var logger = bunyan.createLogger(
         path: fatalLogPath, // log ERROR and above to a file
         type: 'rotating-file',
         period: '1d', // daily rotation
-        count: 10, // keep 10 back copies
+        count: 5, // keep 10 back copies
         name: 'Errors'
       }
     ]

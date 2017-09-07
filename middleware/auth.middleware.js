@@ -52,7 +52,6 @@ module.exports = function () {
   this.setSession = (req) => {
     req.session.authenticated = true
     return map.inverse(_.omit(this.user, ['password']), dict.user).then(data => {
-      console.log("Inversed: ", data);
       req.session.user = data
       return Promise.resolve(req.session.user)
     }).catch(error => {
