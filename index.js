@@ -26,7 +26,8 @@ let express = require('express'),
 auth = require('./routes/authentication.route'),
     users = require('./routes/users'),
     donate = require('./routes/donate'),
-    tests = require('./routes/unitTests')
+    tests = require('./routes/unitTests'),
+    count = require('./routes/count')
 
 let app = express(),
     port = process.env.PORT || config.port,
@@ -61,3 +62,4 @@ app.use(session(config.auth))
     .use('/users', users)
     .use('/donate', donate)
     .use('/tests', tests)
+    .use('/blood_count', count)
