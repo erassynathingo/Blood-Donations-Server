@@ -18,5 +18,17 @@ module.exports = {
     role: 'role',
     entry_date: 'entry_date',
     permissions: 'permissions'
+  },
+  blood_types: {
+    "_id": "_id",
+    "O_minus": 'O-',
+    "O_plus": 'O+',
+    "A_minus": 'A-',
+    "A_plus": 'A+',
+    "B_minus": 'B-',
+    "B_plus": 'B+',
+    "AB_minus": 'AB-',
+    "AB_plus": 'AB+'
+
   }
 }

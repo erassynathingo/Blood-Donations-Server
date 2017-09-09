@@ -8,7 +8,7 @@
 */
 let config = require("../config");
 let mongoose = require("mongoose");
-let Model = require("../models/alert.model");
+let Model = require("../models/donation.model");
 let dict = require("../helpers/dictionary");
 let mapper = require("../helpers/map");
 const Log = require("../libraries/logger.lib");
