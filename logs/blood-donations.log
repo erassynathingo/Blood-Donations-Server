@@ -1,8 +1,0 @@
-{"name":"alert_tool_logs","hostname":"Erassys-MacBook-Air.local","pid":84674,"level":50,"status":401,"message":"User is not logged in","msg":"","time":"2017-09-07T10:23:10.959Z","v":0}
-{"name":"alert_tool_logs","hostname":"Erassys-MacBook-Air.local","pid":84674,"level":50,"status":401,"message":"Authentication failed, User does not exist","msg":"","time":"2017-09-07T10:24:09.879Z","v":0}
-{"name":"alert_tool_logs","hostname":"Erassys-MacBook-Air.local","pid":84674,"level":50,"status":401,"message":"Authentication failed, Wrong password","msg":"","time":"2017-09-07T10:24:20.220Z","v":0}
-{"name":"alert_tool_logs","hostname":"Erassys-MacBook-Air.local","pid":87776,"level":50,"status":401,"message":"User is not logged in","msg":"","time":"2017-09-07T10:54:13.738Z","v":0}
-{"name":"alert_tool_logs","hostname":"Erassys-MacBook-Air.local","pid":87776,"level":50,"status":401,"message":"User is not logged in","msg":"","time":"2017-09-07T12:49:50.340Z","v":0}
-{"name":"alert_tool_logs","hostname":"Erassys-MacBook-Air.local","pid":87776,"level":50,"status":401,"message":"User is not logged in","msg":"","time":"2017-09-07T12:54:07.866Z","v":0}
-{"name":"alert_tool_logs","hostname":"Erassys-MacBook-Air.local","pid":87776,"level":50,"status":401,"message":"Authentication failed, User does not exist","msg":"","time":"2017-09-07T14:35:40.997Z","v":0}
-{"name":"alert_tool_logs","hostname":"Erassys-MacBook-Air.local","pid":87776,"level":50,"status":401,"message":"Authentication failed, User does not exist","msg":"","time":"2017-09-07T14:35:52.089Z","v":0}
