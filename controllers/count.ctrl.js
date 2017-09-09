@@ -8,11 +8,11 @@ let Model = require("../models/count.model")
 
 module.exports = {
     getOne: req => {
-        return Model.findOne({ idNumber: req.params.id });
+        return Model.findOne({ _id: 1 });
     },
 
     create: req =>  Model.create(req.body),
-    
+
     update: (req) => {
         console.log("Update Details: ", req.body);
         let newValue = 0;
@@ -21,5 +21,9 @@ module.exports = {
             newValue = parseInt(oldValue) + parseInt(req.body.value);
             return Model.findOneAndUpdate({"blood_type": req.body.blood_type}, {"count": newValue}, {new: false});
         })
+    },
+
+    getMany: ()=>{
+        return Model.find({});
     }
 };

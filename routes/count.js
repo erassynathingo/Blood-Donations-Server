@@ -34,4 +34,14 @@ router.post('/', (req, res, next) => {
     })
 })
 
+.get('/', (req, res)=>{
+    controller.getMany().then(data=>{
+        res.status(200).json(data);
+    }).catch(error=>{
+        logger.log('Fetch reulted in error').error(error)
+        let json = errorHandler.resolve(error, config.response.status_codes.NOT_FETCHED)
+        response.send(res, json)
+    })
+})
+
 module.exports = router
