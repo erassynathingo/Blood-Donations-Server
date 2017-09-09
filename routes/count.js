@@ -19,8 +19,17 @@ router.post('/', (req, res, next) => {
     controller.create(req).then((success) => {
         res.status(200).json(success)
     }).catch(error => {
-        logger.log('Error sending blood').error(error)
+        logger.log('Error Saving TYpe').error(error)
         let json = errorHandler.resolve(error, config.response.status_codes.NOT_CREATED)
+        response.send(res, json)
+    })
+})
+.patch('/', (req, res) =>{
+    controller.update(req).then(data=>{
+        res.status(200).json(data)
+    }).catch(error=>{
+        logger.log('Update reulted in error').error(error)
+        let json = errorHandler.resolve(error, config.response.status_codes.NOT_UPDATED)
         response.send(res, json)
     })
 })

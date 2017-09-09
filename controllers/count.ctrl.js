@@ -11,17 +11,15 @@ module.exports = {
         return Model.findOne({ idNumber: req.params.id });
     },
 
-    create: req => {
-        return mapper.map(req.body, dict.blood_types).then(data => {
-            return Model.create(data);
-        })
-
-    },
+    create: req =>  Model.create(req.body),
+    
     update: (req) => {
-        if (permissions.updateItems(req.session) == true) {
-            return Model.update(req.body = {
-                blood_type: '',
-            });
-        }
+        console.log("Update Details: ", req.body);
+        let newValue = 0;
+        return Model.findOne({blood_type: req.body.blood_type}).select("count").then(count=>{
+            let oldValue = count.count;
+            newValue = parseInt(oldValue) + parseInt(req.body.value);
+            return Model.findOneAndUpdate({"blood_type": req.body.blood_type}, {"count": newValue}, {new: false});
+        })
     }
 };
