@@ -9,6 +9,7 @@ let _ = require('underscore');
 
 module.exports = {
     getOne: req => {
+        let 
         return Model.findOne({ "blood_type": req.params.type }).select("count");
     },
 
