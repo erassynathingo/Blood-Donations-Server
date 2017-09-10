@@ -8,7 +8,7 @@
 */
 let config = require("../config");
 let mongoose = require("mongoose");
-let Model = require("../models/donation.model");
+let Model = require("../models/alert.model");
 let dict = require("../helpers/dictionary");
 let mapper = require("../helpers/map");
 const Log = require("../libraries/logger.lib");
@@ -24,14 +24,31 @@ module.exports = {
   getAll: () => {
     return Model.find({});
   },
-
-  create: req => {
-    if (permissions.createItems(req.session) == true) {
-      return Model.create(req.body);
+  delete: (req) => {
+    if (permissions.delete(req.session) == true) {
+      return Model.findOneAndRemove({_id: req.params._id});
     }
   },
 
+  create: req => {
+    if (permissions.createItems(req.session) == true) {
+      return Model.create(req);
+    }
+  },
   update: req =>{
-    //if(permissions.updateItems(req.session))
-  }
+    if(permissions.updateItems(req.session) == true){
+      logger.Log(req.params._id + data + 'data')
+      return Model.findOneAndUpdate({_id: req.params._id})
+    }
+  },
+   patch: (req) => {
+    return hash.encrypt(req.body.password).then(password => {
+      return Model.findOneAndUpdate({
+        _id: req.params._id
+      }, {
+        password: password
+      });
+    })
+  },
 };
+
