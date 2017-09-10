@@ -5,10 +5,11 @@ let logger = new Log();
 let mapper = require("../helpers/map")
 let dict = require("../helpers/dictionary")
 let Model = require("../models/count.model")
+let _ = require('underscore');
 
 module.exports = {
     getOne: req => {
-        return Model.findOne({ _id: 1 });
+        return Model.findOne({ "blood_type": req.params.type }).select("count");
     },
 
     create: req =>  Model.create(req.body),
