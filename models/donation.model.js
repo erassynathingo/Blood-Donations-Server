@@ -11,7 +11,6 @@ let db = require("../libraries/db.js");
 let Schema = db.Schema;
 let users = require("../models/users.model");
 let donationSchema = new Schema({
-  _id: { type: Number, unique: true, required: true },
   personalInfo: {
     title: { type: String, required: false },
     firstName: { type: String, required: true },

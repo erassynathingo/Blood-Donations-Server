@@ -17,13 +17,10 @@ let logger = new Log();
 let permissions = new Permissions();
 
 module.exports = {
-  getOne: req => {
-    return Model.findOne({ idNumber: req.params.id });
-  },
+  getOne: req => Model.findOne({ idNumber: req.params.id }),
 
-  getAll: () => {
-    return Model.find({});
-  },
+  getAll: () => Model.find({}),
+  
   delete: (req) => {
     if (permissions.delete(req.session) == true) {
       return Model.findOneAndRemove({_id: req.params._id});
@@ -49,6 +46,6 @@ module.exports = {
         password: password
       });
     })
-  },
+  }
 };
 
