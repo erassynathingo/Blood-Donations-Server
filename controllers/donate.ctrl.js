@@ -17,35 +17,24 @@ let logger = new Log();
 let permissions = new Permissions();
 
 module.exports = {
-  getOne: req => Model.findOne({ idNumber: req.params.id }),
+  getOne: req => Model.findOne({ "personalInfo.personalInfo.idNumber": req.params._id }),
 
   getAll: () => Model.find({}),
-  
-  delete: (req) => {
-    if (permissions.delete(req.session) == true) {
-      return Model.findOneAndRemove({_id: req.params._id});
+
+  delete: req => {
+    if (permissions.delete(req) == true) {
+      return Model.findOneAndRemove({ "personalInfo.personalInfo.idNumber": req.params._id });
     }
   },
 
   create: req => {
-    if (permissions.createItems(req.session) == true) {
-      return Model.create(req);
+    if (permissions.createItems(req) == true) {
+      return Model.create(req.body);
     }
   },
-  update: req =>{
-    if(permissions.updateItems(req.session) == true){
-      logger.Log(req.params._id + data + 'data')
-      return Model.findOneAndUpdate({_id: req.params._id})
+  update: req => {
+    if (permissions.updateItems(req) == true) {
+      return Model.findOneAndUpdate({ "personalInfo.personalInfo.idNumber": req.params._id }, req.body);
     }
-  },
-   patch: (req) => {
-    return hash.encrypt(req.body.password).then(password => {
-      return Model.findOneAndUpdate({
-        _id: req.params._id
-      }, {
-        password: password
-      });
-    })
   }
 };
-

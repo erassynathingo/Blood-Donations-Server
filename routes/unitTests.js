@@ -39,4 +39,15 @@ router.post('/haha', auth.authenticate,(req, res, next) => {
     response.send(res, json)
   })
 })
+
+router.post('/sms',(req, res)=>{
+  let fromClient = req.body;
+  res.status(200).json({
+    message: `<div>
+    <h1>Hi There ${fromClient.name}</h1>
+    </div>`
+  })
+})
+
+
 module.exports = router

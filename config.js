@@ -12,7 +12,8 @@ MongoStore = require('connect-mongo')(session)
 module.exports = {
   env: 'Development',
   port: 3030,
-  db_url: 'mongodb://localhost:27017/Blood_Donations_Data',
+  //db_url: 'mongodb://localhost:27017/Blood_Donations_Data',
+  db_url: "mongodb://3rassy:User490@dev-shard-00-00-rd5rz.mongodb.net:27017,dev-shard-00-01-rd5rz.mongodb.net:27017,dev-shard-00-02-rd5rz.mongodb.net:27017/Blood_Donations_App?ssl=true&replicaSet=Dev-shard-0&authSource=admin",
 
   auth: {
     secret: 'S0ftwar3_3ng1n33ring_i5_7h3_B357',
@@ -22,7 +23,7 @@ module.exports = {
     },
     saveUninitialized: false,
     resave: true,
-    store: new MongoStore({ url: 'mongodb://localhost:27017/Blood_Donations_Data' }),
+    store: new MongoStore({ url: 'mongodb://3rassy:User490@dev-shard-00-00-rd5rz.mongodb.net:27017,dev-shard-00-01-rd5rz.mongodb.net:27017,dev-shard-00-02-rd5rz.mongodb.net:27017/Blood_Donations_App?ssl=true&replicaSet=Dev-shard-0&authSource=admin' }),
     cookie: {
       expires: new Date(Date.now() + (3600000)),
       maxAge: 3600000
