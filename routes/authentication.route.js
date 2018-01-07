@@ -17,8 +17,14 @@ let auth = new Auth();
 let Response = require('../middleware/responder.middleware');
 let response = new Response();
 let bodyParser = require('body-parser');
+require('body-parser-xml')(bodyParser);
 let app = express();
 app.use(bodyParser.json());
+app.use(bodyParser.xml(
+	{
+		type: 'application/xml'
+	}
+));
 
 let router = express.Router();
 

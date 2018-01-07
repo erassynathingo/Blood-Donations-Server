@@ -45,13 +45,9 @@ app.use(session(config.auth))
     .set('Title', 'Blood_Donations_Server')
     .use(morgan('dev'))
     .use(headers)
-    .use(bodyParser.json())
-    .use(bodyParser.urlencoded({
-        extended: true
-    }))
-    .use(bodyParser.raw({
-        limit: '50mb'
-    }))
+    .use(bodyParser.urlencoded({ extended: true, limit: '1000mb' }))
+    .use(bodyParser.json({ limit: '100mb' }))
+    .use(bodyParser.raw({ limit: '100mb' }))
     .use(responseTime())
     /* Security*/
     .use(helmet())
