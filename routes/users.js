@@ -65,14 +65,14 @@ router.get('/:user_id/check', (req, res, next) => {
   })
 }).patch('/:user_id', auth.authenticate, (req, res, next) => {
   controller.patch(req).then((doc) => {
-    logger.log(' password change successful').log(doc)
+    logger.log('Password change successful').log(doc)
     if (doc !== null) {
       res.status(200).json(doc)
     } else {
       throw new Error('Cannot update user password.')
     }
   }).catch((error) => {
-    logger.log(' password update unsuccessful').error(error.message)
+    logger.log('Password update unsuccessful').error(error.message)
     let json = errorHandler.resolve(error, config.response.status_codes.NOT_UPDATED)
     response.send(res, json)
   })
