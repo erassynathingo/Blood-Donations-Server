@@ -17,7 +17,7 @@ let logger = new Log();
 let permissions = new Permissions();
 
 module.exports = {
-  getOne: req => Model.findOne({ "personalInfo.personalInfo.idNumber": req.params._id }),
+  getOne: req => Model.findOne({ "personalInfo.personalInfo.idNumber": req.params.id }),
 
   getAll: () => Model.find({}),
 
@@ -28,9 +28,7 @@ module.exports = {
   },
 
   create: req => {
-    if (permissions.createItems(req) == true) {
       return Model.create(req.body);
-    }
   },
   update: req => {
     if (permissions.updateItems(req) == true) {

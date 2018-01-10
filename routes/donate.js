@@ -10,7 +10,7 @@
 const config = require('../config');
 const Log = require('../libraries/logger.lib');
 let express = require('express');
-let router = express.Router();
+let bodyParser = require('body-parser');
 let errorHandler = require('../libraries/errorHandler.lib');
 let Auth = require('../middleware/auth.middleware');
 let Response = require('../middleware/responder.middleware');
@@ -19,9 +19,17 @@ let response = new Response();
 let logger = new Log();
 let auth = new Auth();
 let moduleName = "Item";
+let router = express.Router();
 
-router.put('/', (res, req, next) => {
+let app = express()
+app.use(bodyParser.urlencoded({
+  extended: false
+}))
+
+router.put('/', (req, res, next) => {
+  console.log("Application: ", req.body)
   controller.create(req).then(doc => {
+    console.log("Returned: ", doc)
     logger.log(moduleName+' Creation successful').log(doc)
     res.status(200).json(doc)
   }).catch(error => {
@@ -29,7 +37,7 @@ router.put('/', (res, req, next) => {
     let json = errorHandler.resolve(error, config.response.status_codes.NOT_CREATED, moduleName+' could not be Created: ' + error.messsage)
     response.send(res, json)
   })
-}).get('/', auth.authenticate, (req, res, next) => {
+}).get('/', (req, res, next) => {
   controller.getAll(req).then(data => {
     logger.log(moduleName+' Fetch Successfull').log(data)
     res.status(200).json(data)
@@ -38,7 +46,7 @@ router.put('/', (res, req, next) => {
     let json = errorHandler.resolve(error, config.response.status_codes.NOT_FETCHED, moduleName+' could not be Fetched: ' + error.messsage)
     response.send(res, json)
   })
-}).get('/:id', auth.authenticate, (req, res, next) => {
+}).get('/:id', (req, res, next) => {
   controller.getOne(req).then(data => {
     logger.log(moduleName+' Fetch Successfull').log(data)
     res.status(200).json(data)

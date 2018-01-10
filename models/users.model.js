@@ -9,7 +9,7 @@
 
 let db = require("../libraries/db.js");
 let ai = require("mongoose-auto-increment");
-ai.initialize(db.connection);
+//ai.initialize(db.connection);
 let Schema = db.Schema;
 let moment = require("moment");
 let users = require("../models/users.model");
