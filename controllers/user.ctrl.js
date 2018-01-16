@@ -51,7 +51,8 @@ module.exports = {
   },
 
   delete: (req)=>{
-    return Model.findOneAndRemove(req.params._id);
+    console.log("Removing: ", req.params)
+    return Model.findOneAndRemove({_id: req.params.user_id});
   },
 
   getOne: (req) => {

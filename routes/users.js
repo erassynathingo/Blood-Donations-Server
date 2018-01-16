@@ -77,6 +77,7 @@ router.get('/:user_id/check', (req, res, next) => {
     response.send(res, json)
   })
 }).delete('/:user_id', auth.authenticate, (req, res, next) => {
+  logger.log('Deleting User: ').log(req.params.user_id);
   controller.delete(req).then((doc) => {
     logger.log('User Deletion successful').log(doc)
     if (doc !== null) {

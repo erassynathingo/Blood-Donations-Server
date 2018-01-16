@@ -17,7 +17,7 @@ let donationSchema = new Schema({
     firstName: { type: String},
     lastName: { type: String},
     maidenName: { type: String, required: false },
-    idNumber: { type: String},
+    idNumber: { type: String, required: true},
     dateOfBirth: { type: String},
     gender: { type: String},
     language: { type: String},

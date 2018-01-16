@@ -15,4 +15,7 @@ mongoose.Promise = Promise
 mongoose.connect(config.db_url,{useMongoClient: true})
 let database = mongoose.connection
 database.on('error', console.error.bind(console, 'MongoDB connection error:'))
+.on('connected', () => {
+    console.log(`Database connected`);
+})
 module.exports = mongoose
