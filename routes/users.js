@@ -17,10 +17,16 @@ let Auth = require('../middleware/auth.middleware');
 let auth = new Auth();
 let Response = require('../middleware/responder.middleware');
 let controller = require('../controllers/user.ctrl');
+let blood_controller = require('../controllers/count.ctrl');
 let NotFoundError = require("../libraries/errors/NotFound");
 let response = new Response();
+let UnAuthorizedError = require('../libraries/errors/UnAuthorizedError');
 
 let router = express.Router()
+let RBAC = require('../libraries/authorize.lib');
+
+const roles = require('../config/roles.config');
+let authorizer = new RBAC(roles);
 let app = express()
 app.use(bodyParser.urlencoded({
   extended: false
@@ -40,7 +46,24 @@ router.get('/:user_id/check', (req, res, next) => {
     let json = errorHandler.resolve(error, config.response.status_codes.NOT_CREATED, 'User retrieval unsuccessful')
     response.send(res, json)
   })
-}).post('/:user_id', auth.authenticate, (req, res, next) => {
+})
+
+.post('/request', (req, res) =>{
+   blood_controller.getByType(req.body.blood_type).then(data=>{
+     if(data.count < req.body.amount){
+      return Promise.resolve(`Not Enough litres for blood type ${req.body.blood_type}</br> Current Amount: ${data.count} litres`)
+     }else{
+      return Promise.resolve(`Bank has enough litres for blood type ${req.body.blood_type}</br> Current Amount: ${data.count} litres`)
+     }
+   }).then(message=>{
+     controller.updateAction(req.body).then(done=>{
+       console.log("updated Action: ", done);
+       res.status(200).json({message: message});
+     })
+   })
+})
+
+.post('/:user_id', auth.authenticate, (req, res, next) => {
   controller.update(req).then((doc) => {
     logger.log(req.params.staff_id+'update successful').log(doc)
     if (doc !== null) {
@@ -54,8 +77,9 @@ router.get('/:user_id/check', (req, res, next) => {
     response.send(res, json)
   })
 }).put('/', (req, res, next) => {
-  console.log("REG h: ", req.body);
-  controller.create(req).then((doc) => {
+  authorizer.can(req.session.user, 'CREATE', `Creating ${JSON.stringify(req.body)}`).then(data => {
+    return controller.create(req)
+  }).then((doc) => {
     logger.log('Registration successful').log(doc)
     res.status(200).json(doc)
   }).catch((error) => {

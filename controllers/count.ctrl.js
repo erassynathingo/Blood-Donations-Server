@@ -27,5 +27,9 @@ module.exports = {
 
     getMany: ()=>{
         return Model.find({});
+    },
+
+    getByType: (type) => {
+        return Model.findOne({blood_type: type})
     }
 };

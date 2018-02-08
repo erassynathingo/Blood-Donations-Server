@@ -9,6 +9,7 @@ let errorHandler = require('../libraries/errorHandler.lib');
 let response = new Response();
 let bodyParser = require('body-parser');
 let controller = require('../controllers/count.ctrl');
+const User_Controller = require('../controllers/user.ctrl');
 let app = express()
 app.use(bodyParser.urlencoded({
   extended: false

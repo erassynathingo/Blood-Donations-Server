@@ -17,7 +17,7 @@ let _config = require("../config");
 
 let userSchema = new Schema(
   {
-    _id: { type: Number, unique: true, required: true },
+    _id: { type: Number, required: true },
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
     email: { type: String, required: true },
@@ -25,8 +25,8 @@ let userSchema = new Schema(
     username: { type: String, unique: true, required: true },
     role: { type: String, required: true },
     entry_date: { type: Date, default: Date.now },
-    entered_by: { type: String, ref: users },
-    permissions: { type: Array, default: _config.defaultPermissions }
+    permissions: { type: Array, default: _config.defaultPermissions },
+    actions: { type: Array, default: []}
   }
 );
 

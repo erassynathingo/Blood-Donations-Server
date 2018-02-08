@@ -30,6 +30,7 @@ module.exports = {
   update: (req) => {
     return mapper.map(_.omit(req.body, ['password']), dict.user).then(data => {
       logger.log('Session User: ', req.session.user);
+      logger.log('New Password: ', req.body);
       return Model.findOneAndUpdate({
         _id: req.params.user_id
       }, data)
@@ -62,5 +63,9 @@ module.exports = {
   },
   get: (req) => {
     return Model.find({})
+  },
+
+  updateAction: function (action) {
+    return Model.findOneAndUpdate({ _id: action.requester }, {$push: { actions: action }}, {new: true});
   }
 }

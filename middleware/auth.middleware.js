@@ -42,9 +42,11 @@ module.exports = function () {
       /** compare passwords */
       return hash.compare(req.body.password, user.password)
     }).then(resp => {
+      req.currentUser = this.user;
       if (!resp) {
         return Promise.reject(new UnAuthorizedError('Authentication failed, Wrong password'));
       }
+      
       return this.setSession(req)
     })
   }
