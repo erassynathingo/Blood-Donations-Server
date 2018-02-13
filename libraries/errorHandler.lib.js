@@ -30,6 +30,10 @@ module.exports = {
         response.status = (!_.isUndefined(error.status) && !_.isEmpty(error.status)) ? error.status : 401
         response.message = (!_.isUndefined(error.message) && !_.isEmpty(error.message)) ? error.message : 'You are not authorized'
         break;
+        case 'MailError':
+          response.status = 400
+          response.message = (!_.isUndefined(error.message) && !_.isEmpty(error.message)) ? error.message : 'Email Error'
+          break;
       case 'TypeError':
         response.status = (!_.isUndefined(error.status) && !_.isEmpty(error.status)) ? error.status : status 
         response.message = (!_.isUndefined(error.message) && !_.isEmpty(error.message)) ? error.message : 'Validation Type Error'

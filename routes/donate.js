@@ -73,6 +73,17 @@ router.put('/', (req, res, next) => {
     let json = errorHandler.resolve(error, config.response.status_codes.NOT_UPDATED, moduleName+' could not be Patched: ' + error.messsage)
     response.send(res, json)
   })
+}).post('/mail', (req, res, next) => {
+  controller.sendMail(req.body).then(data => {
+    logger.log("Mail Sent: ").log(data);
+    console.log("Mail Sent: ", data)
+    res.status(200).json(data)
+  }).catch(error => {
+    logger.log(moduleName+' Mail Error: ', error).error(error)
+    console.log("Mail Error: ", error);
+    let json = errorHandler.resolve(error, error.status)
+    response.send(res, json)
+  })
 })
 
 module.exports = router

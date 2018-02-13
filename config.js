@@ -66,5 +66,28 @@ module.exports = {
   defaultPermissions: ["read", "write", "update"],
   originsWhitelist : [
     "http://localhost:3030"
-  ]
+  ],
+
+  mailOptions: {
+    from: 'erassywap2@gmail.com',
+    host: 'smtp.gmail.com', // hostname 
+    secureConnection: true, // use SSL 
+    port: 465, // port for secure SMTP 
+    transportMethod: 'SMTP', // default is SMTP. Accepts anything that nodemailer accepts 
+    auth: {
+      user: 'erassywap2@gmail.com',
+      pass: '0817246654'
+    }
+  },
+
+  nodemailerConfigs : {
+    service: 'gmail',
+    host: 'smtp.gmail.com',
+    auth: {
+      user: 'erassywap@gmail.com',
+      pass: '0817246654'
+    },
+    logger: true, // log to console
+    debug: true
+  }
 }
