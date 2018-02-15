@@ -65,8 +65,7 @@ router.get('/:user_id/check', (req, res, next) => {
         message: message
       };
       controller.updateAction(req.body).then(done => {
-        console.log('updated Action: ', done);
-        data.doctor = done.firstName + ' ' + done.firstName;
+        data.doctor = done.firstName + ' ' + done.lastName;
         data.email = done.email;
       });
       return Promise.resolve(data);
@@ -74,7 +73,7 @@ router.get('/:user_id/check', (req, res, next) => {
       return donateCtrl.getbyBloodType(data.request.blood_type).then(blood_types => {
         let splitMailList = [];
         _.forEach(blood_types, (person) => {
-          splitMailList.push(person.personalInfo.personalInfo.email);
+          splitMailList.push(person.personalInfo.email);
         });
         let jointMailList = splitMailList.join();
         console.log('Mailing: ', jointMailList);
@@ -83,6 +82,7 @@ router.get('/:user_id/check', (req, res, next) => {
           emailData: { 'to': jointMailList,
             'subject': 'Blood Request',
             'from': 'Blood Donation System <erassywap@gmail.com>',
+            'html': '',
             'data': {
               'requester': data.doctor,
               'email': data.email,
@@ -95,7 +95,9 @@ router.get('/:user_id/check', (req, res, next) => {
         });
       });
     }).then(data => {
-      return donateCtrl.sendMail(data.emaildata).then(res =>{
+      
+      return donateCtrl.sendMail(data.emailData).then(res =>{
+
         return Promise.resolve({
           response: res,
           message: data.message

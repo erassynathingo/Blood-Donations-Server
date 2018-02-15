@@ -42,6 +42,7 @@ module.exports = {
   },
 
   sendMail: options => {
+    console.log("MAIL OPTIONS: ", options);
     const source = fs.readFileSync(path.join(__dirname, '../templates/blood-request.hbs'), 'utf8');
     // Create email generator
     const template = Handlebars.compile(source);
@@ -51,7 +52,7 @@ module.exports = {
 
   getbyBloodType: blood_type =>{
     return Model.find({
-      'personalInfo.personalInfo.blood_type': blood_type
+      'personalInfo.bloodType': blood_type
     })
   }
 };
