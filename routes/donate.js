@@ -39,7 +39,7 @@ router.put('/', (req, res, next) => {
   })
 }).get('/', (req, res, next) => {
   controller.getAll(req).then(data => {
-    logger.log(moduleName+' Fetch Successfull').log(data)
+    logger.log(moduleName+' Fetch Successfull')
     res.status(200).json(data)
   }).catch(error => {
     logger.log(moduleName+' Fetch Error: ', error).error(error)
@@ -48,7 +48,7 @@ router.put('/', (req, res, next) => {
   })
 }).get('/:id', (req, res, next) => {
   controller.getOne(req).then(data => {
-    logger.log(moduleName+' Fetch Successfull').log(data)
+    logger.log(moduleName+' Fetch Successfull')
     res.status(200).json(data)
   }).catch(error => {
     logger.log(moduleName+' Fetch Error: ', error).error(error)
@@ -57,7 +57,7 @@ router.put('/', (req, res, next) => {
   })
 }).delete('/', auth.authenticate, (req, res, next) => {
   controller.delete(req).then(data => {
-    logger.log("Item Deleted: ").log(data)
+    logger.log("Item Deleted: ")
     res.status(200).json(data)
   }).catch(error => {
     logger.log(moduleName+' Delete Error: ', error).error(error)
@@ -66,7 +66,7 @@ router.put('/', (req, res, next) => {
   })
 }).patch('/', auth.authenticate, (req, res, next) => {
   controller.patch(req).then(data => {
-    logger.log("Item Patched: ").log(data)
+    logger.log("Item Patched: ")
     res.status(200).json(data)
   }).catch(error => {
     logger.log(moduleName+' patch Error: ', error).error(error)
