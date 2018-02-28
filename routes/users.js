@@ -99,7 +99,6 @@ router.get('/:user_id/check', (req, res, next) => {
       return donateCtrl.sendMail(data.emailData).then(res =>{
 
         return Promise.resolve({
-          response: res,
           message: data.message
         })
 

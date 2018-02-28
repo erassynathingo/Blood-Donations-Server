@@ -32,11 +32,11 @@ router.put('/', (req, res, next) => {
   controller.create(req).then(application => {
       console.log('Returned: ', application);
       logger.log(moduleName + 'Application Creation successful').log(JSON.stringify(application));
-      logger.log(moduleName + ' Creation Donation').log(doc);
+      logger.log(moduleName + ' Creation Donation').log(application);
       let request = {
         body: {
             blood_type: application.personalInfo.bloodType,
-            count: 1
+            value: parseInt("1")
         }
       }
       return countController.update(request)

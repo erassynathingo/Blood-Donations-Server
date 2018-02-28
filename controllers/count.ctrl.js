@@ -21,7 +21,7 @@ module.exports = {
         return Model.findOne({blood_type: req.body.blood_type}).select("count").then(count=>{
             let oldValue = count.count;
             newValue = parseInt(oldValue) + parseInt(req.body.value);
-            return Model.findOneAndUpdate({"blood_type": req.body.blood_type}, {"count": newValue}, {new: false});
+            return Model.findOneAndUpdate({"blood_type": req.body.blood_type}, {"count": newValue}, {new: true});
         })
     },
 
