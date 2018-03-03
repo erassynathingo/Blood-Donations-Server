@@ -49,6 +49,17 @@ router.get('/:user_id/check', (req, res, next) => {
     response.send(res, json);
   });
 })
+.post('/preRequest', (req, res) =>{
+  blood_controller.getByType(req.body.blood_type).then(data => {
+    if (data.count < req.body.amount) {
+      return Promise.resolve({message: `Not Enough litres for blood type ${req.body.blood_type}</br> Current Amount: ${data.count} litres`, status: 'Not Enough'});
+    }else {
+      return Promise.resolve({message: `Bank has enough litres for blood type ${req.body.blood_type}</br> Current Amount: ${data.count} litres`, status: 'Enough'});
+    }
+  }).then(data => {
+    res.status(200).json(data);
+  })
+})
 
   .post('/request', (req, res) => {
     blood_controller.getByType(req.body.blood_type).then(data => {
@@ -104,7 +115,7 @@ router.get('/:user_id/check', (req, res, next) => {
 
       })
     }).then(completed => {
-      res.status(200).json(completed);
+      res.status(200).json({message: "Emailing Patients Completed"});
     });
   })
 
