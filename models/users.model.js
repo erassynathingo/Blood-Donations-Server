@@ -20,7 +20,7 @@ let userSchema = new Schema(
     _id: { type: Number, required: true },
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
-    email: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     username: { type: String, unique: true, required: true },
     role: { type: String, required: true },
