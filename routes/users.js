@@ -176,7 +176,7 @@ router.get('/:user_id/check', (req, res, next) => {
     response.send(res, json);
   });
 })
-  .get('/user_id', auth.authenticate, (req, res, next) => {
+  .get('/:user_id', auth.authenticate, (req, res, next) => {
     controller.getOne(req).then((doc) => {
       logger.log(' retrieval successful').log(doc);
       if (doc !== null) {
